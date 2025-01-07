@@ -1,15 +1,14 @@
 <template>
-   <div ref="gauge" class="gauge"></div>
+  <div ref="gauge" class="gauge"></div>
 </template>
 
-
-<script lang='ts' setup>
+<script lang="ts" setup>
 import { onMounted, ref, watch, nextTick, onBeforeUnmount } from 'vue'
 import * as echarts from 'echarts'
-import { debounce } from "@/utils/index.tsx"
+import { debounce } from '@/utils/index.tsx'
 
 const gauge = ref<HTMLDivElement | null>(null)
-let chart: echarts.ECharts | null = null;
+let chart: echarts.ECharts | null = null
 
 onMounted(() => {
   initChart()
@@ -18,15 +17,21 @@ onMounted(() => {
 const initChart = () => {
   let chart = echarts.init(gauge.value)
 
-  const sunriseTime = 6; // 日出时间 6:00
-  const sunsetTime = 18; // 日落时间 18:00
+  const sunriseTime = 6 // 日出时间 6:00
+  const sunsetTime = 18 // 日落时间 18:00
 
   // 假设当前时间是 12:00
-  const currentTime = 12;
+  const currentTime = 12
 
   // 将时间差转换为0到100之间的百分比
-  const sunriseProgress = Math.max(0, Math.min(100, ((currentTime - sunriseTime) / (sunsetTime - sunriseTime)) * 100));
-  const sunsetProgress = Math.max(0, Math.min(100, ((sunsetTime - currentTime) / (sunsetTime - sunriseTime)) * 100));
+  const sunriseProgress = Math.max(
+    0,
+    Math.min(100, ((currentTime - sunriseTime) / (sunsetTime - sunriseTime)) * 100)
+  )
+  const sunsetProgress = Math.max(
+    0,
+    Math.min(100, ((sunsetTime - currentTime) / (sunsetTime - sunriseTime)) * 100)
+  )
 
   chart.setOption({
     series: [
@@ -56,8 +61,8 @@ const initChart = () => {
           // 刻度线的分割数量
           splitNumber: 5,
           lineStyle: {
-              width: 2,
-              color: '#999'
+            width: 2,
+            color: '#999'
           }
         },
         splitLine: {
@@ -80,25 +85,27 @@ const initChart = () => {
           }
         },
         pointer: {
-          show: false,
+          show: false
         },
-        data: [{
-          value: currentTime, 
-          detail: {
-            valueAnimation: true,
-            width: '20%',
-            offsetCenter: [0, '-0%'],
-            formatter: '当前时间: {value} 时',
-            fontSize: 16,
-            color: '#fff',
-          }, 
-          // title: {
-          //   show: true,
-          //   offsetCenter: ['-200%', '0%'],
-          //   fontSize: 16,
-          //   color: '#fff',
-          // }
-        }],
+        data: [
+          {
+            value: currentTime,
+            detail: {
+              valueAnimation: true,
+              width: '20%',
+              offsetCenter: [0, '-0%'],
+              formatter: '当前时间: {value} 时',
+              fontSize: 16,
+              color: '#fff'
+            }
+            // title: {
+            //   show: true,
+            //   offsetCenter: ['-200%', '0%'],
+            //   fontSize: 16,
+            //   color: '#fff',
+            // }
+          }
+        ]
       }
     ]
   })
@@ -146,20 +153,19 @@ watch(
 
 const resizeDebounce = debounce(() => {
   if (chart) {
-    chart.resize();
+    chart.resize()
   }
-}, 200);
+}, 200)
 
 onBeforeUnmount(() => {
   if (chart) {
-    chart.dispose();
+    chart.dispose()
   }
-  window.removeEventListener('resize', resizeDebounce);
-});
+  window.removeEventListener('resize', resizeDebounce)
+})
 </script>
 
-
-<style lang='less' scoped>
+<style lang="less" scoped>
 .gauge {
   width: 100%;
   height: 200px;

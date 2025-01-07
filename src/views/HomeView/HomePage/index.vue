@@ -1,28 +1,46 @@
 <template>
   <div class="chart">
     <dv-border-box-10 class="c-left">
-      <a-tree class="tree" v-model:selectedKeys="selectedKeys" :tree-data="treeData" show-icon default-expand-all>
+      <a-tree
+        class="tree"
+        v-model:selectedKeys="selectedKeys"
+        :tree-data="treeData"
+        show-icon
+        default-expand-all
+      >
         <template #title="{ key, title }">
-          <a-button size="small" v-if="key=='0-0-5'" style="background: #0d4f0e; color: #2c9b3a">在线</a-button>
-          <template v-else-if="key=='0'"></template> 
-          <a-button size="small" v-else style="background: gray; color: #fff">离线</a-button> 
-          <span>{{""}} {{ title }}</span>
+          <a-button size="small" v-if="key == '0-0-5'" style="background: #0d4f0e; color: #2c9b3a"
+            >在线</a-button
+          >
+          <template v-else-if="key == '0'"></template>
+          <a-button size="small" v-else style="background: gray; color: #fff">离线</a-button>
+          <span>{{ '' }} {{ title }}</span>
         </template>
-      </a-tree>        
+      </a-tree>
     </dv-border-box-10>
 
     <dv-border-box-10 class="c-center">
       <div class="c-c">
         <div class="c-c-detail">
           <div class="temperature">
-            <span >
+            <span>
               <span class="value">25</span>
               <SvgIcon name="temperature" color="#ffffff" width="25px" height="25px" />
             </span>
             <span class="label">实时气温</span>
           </div>
           <div class="weather-text">
-            <span class="value">晴</span>
+            <span>
+              <span class="value">晴</span>
+              <SvgIcon
+                name="position"
+                color="#fff"
+                width="20px"
+                height="20px"
+                className="svg-animation"
+              ></SvgIcon>
+            </span>
+
             <span class="label">天气</span>
           </div>
           <div class="update-time">
@@ -39,20 +57,25 @@
             <span class="label">空气污染指数</span>
           </div>
           <div class="sensible-temperature">
-            <span><span class="value">23</span><SvgIcon name="temperature" color="#ffffff" width="25px" height="25px" /></span>
+            <span
+              ><span class="value">23</span
+              ><SvgIcon name="temperature" color="#ffffff" width="25px" height="25px"
+            /></span>
             <span class="label">体感温度</span>
           </div>
           <div class="relative-humidity">
             <span class="value">18%</span>
             <span class="label">相对湿度</span>
           </div>
-          
+
           <div class="wind">
             <span>西南风</span>
             <span>微风</span>
             <span>风速：1.8</span>
           </div>
-          <div class="y"><span>昨天：2024-12-31</span><span>最高气温：23°</span><span>最低气温：13°</span></div>
+          <div class="y">
+            <span>昨天：2024-12-31</span><span>最高气温：23°</span><span>最低气温：13°</span>
+          </div>
           <!-- <div>
             <span>日出时间：07：00</span>
             <span>日落时间：19：00</span>
@@ -80,27 +103,102 @@
         </div>
 
         <!-- <div class="c-c-chart"><Pie /></div> -->
-        <div class="c-c-chart"><GaugeChart /></div>
+        <div class="c-c-chart">
+          <GaugeChart />
+          <!-- <div>
+            <span class="title"></span>
+            <span v-if=" =='i9999'"></span>
+            <span v-if=" =='i4'">很热，极不适应。</span>
+            <span v-if=" =='i3'">热，很不舒适。</span>
+            <span v-if=" =='i2'">暖，不舒适。</span>
+            <span v-if=" =='i1'">温暖，较舒适。</span>
+            <span v-if=" =='i0'">舒适，最可接受。</span>
+            <span v-if=" =='i-1'">凉爽，较舒适。</span>
+            <span v-if=" =='i-2'">凉，不舒适。</span>
+            <span v-if=" =='i-3'">冷，很不舒适。</span>
+            <span v-if=" =='i-4'">很冷，极不适应。</span>
+            <span v-else></span>
+          </div> -->
+
+          <!-- <div>
+            <span class="title">空气状况</span>
+            <span v-if=" =='优'">空气质量令人满意,基本无空气污染。</span>
+            <span v-if=" =='良'">空气质量可接受,但某些污染物可能对极少数异常,敏感人群健康有较弱影响。</span>
+            <span v-if=" =='轻度污染'">易感人群症状有轻度加剧,健康人群出现刺激症状。</span>
+            <span v-if=" =='中度污染'">进一步加剧易感人群症状,可能对健康人群心脏、呼吸系统有影响。</span>
+            <span v-if=" =='重度污染'">心脏病和肺病患者症状显著加剧,运动耐受力减低,健康人群普遍出现症状。</span>
+            <span v-else>健康人运动耐力减低,有显著强烈症状,提前出现某些疾病。</span>
+          </div> -->
+
+          <div>
+            <!-- <span class="title"></span>
+            <span v-if=" =='优'">各类人群可正常活动。</span>
+            <span v-if=" =='良'">极少数异常敏感人群应减少户外活动。</span>
+            <span v-if=" =='轻度污染'">儿童、老年人及心脏病、呼吸系统疾病患者应减少长时间、高强度的户外锻炼。</span>
+            <span v-if=" =='中度污染'">儿童、老年人及心脏病、呼吸系统疾病患者避免长时间、高强度的户外锻炼,一般人群适量减少户外运动。</span>
+            <span v-if=" =='重度污染'">老年人和心脏病、肺病患者应停留在室内，停止户外活动，一般人群减少户外活动。</span>
+            <span v-else>老年人和病人应当留在室内，避免体力消耗，一般人群应避免户外活动。</span> -->
+          </div>
+        </div>
       </div>
     </dv-border-box-10>
 
     <dv-border-box-10 class="c-right">
-      <a-row style="padding: 10px 10px; size: 10px; width: 100%; height: 60px; justify-content: space-between; align-items: center">
-        <SvgIcon name="position" color="#fff" width="20px" height="20px" className="svg-animation"></SvgIcon>
-        <a-space class="position">{{formState2?.province}} {{ "  " }} {{ formState2.city?.split(",")[0]}}</a-space>
+      <a-row
+        style="
+          padding: 10px 10px;
+          size: 10px;
+          width: 100%;
+          height: 60px;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <SvgIcon
+          name="position"
+          color="#fff"
+          width="20px"
+          height="20px"
+          className="svg-animation"
+        ></SvgIcon>
+        <a-space class="position"
+          >{{ formState2?.province }} {{ '  ' }} {{ formState2.city?.split(',')[0] }}</a-space
+        >
       </a-row>
-      <a-form ref="formRef2" class="form" layout="inline" :model="formState2" :label-col="{ span: 4 }" :wrapper-col="{ span: 18 }">
+      <a-form
+        ref="formRef2"
+        class="form"
+        layout="inline"
+        :model="formState2"
+        :label-col="{ span: 4 }"
+        :wrapper-col="{ span: 18 }"
+      >
         <a-form-item name="province" label="省 ">
-          <a-select v-model:value="formState2.province" :options="provinces" placeholder="请选择省级区域" allowClear />
+          <a-select
+            v-model:value="formState2.province"
+            :options="provinces"
+            placeholder="请选择省级区域"
+            allowClear
+          />
         </a-form-item>
         <a-form-item name="city" label="市 ">
-          <a-select v-model:value="formState2.city" :options="cities" placeholder="请选择市/县级区域" allowClear @change="changeCity" />
+          <a-select
+            v-model:value="formState2.city"
+            :options="cities"
+            placeholder="请选择市/县级区域"
+            allowClear
+            @change="changeCity"
+          />
         </a-form-item>
 
-        <a-form-item name="time" label="时间范围" style="width: 400px; margin-top:10px">
-          <a-range-picker v-model:value="formState2.time" show-time locale = {zhCN.RangePicker} />
+        <a-form-item name="time" label="时间范围" style="width: 400px; margin-top: 10px">
+          <a-range-picker v-model:value="formState2.time" show-time :locale="locale" />
         </a-form-item>
-        <a-button @click="download" style="margin-top:10px; margin-left: 160px">下载</a-button>
+
+        <a-form-item style="margin-top: 10px">
+          <a-button @click="download">下载</a-button>
+        </a-form-item>
+
         <!-- <a-form-item style="width: 400px; margin-top:10px;">
           <a-space>
             <a-button @click="download">下载</a-button>
@@ -115,28 +213,29 @@
 
 <script lang="ts" setup>
 import { BorderBox10 as DvBorderBox10 } from '@kjgl77/datav-vue3'
-import { ref, reactive, computed, onMounted } from "vue"
-import type { UnwrapRef } from "vue";
-import { DownOutlined, SmileOutlined, FrownOutlined, FrownFilled, FullscreenOutlined } from '@ant-design/icons-vue';
-import type { TreeProps } from 'ant-design-vue';
-import data1 from "@/assets/json/province.json";
-import data2 from "@/assets/json/city.json";
-import { Province } from "@/types";
+import { ref, reactive, computed, onMounted } from 'vue'
+import type { UnwrapRef } from 'vue'
+import {
+  DownOutlined,
+  SmileOutlined,
+  FrownOutlined,
+  FrownFilled,
+  FullscreenOutlined
+} from '@ant-design/icons-vue'
+import type { TreeProps } from 'ant-design-vue'
+import data1 from '@/assets/json/province.json'
+import data2 from '@/assets/json/city.json'
+import { Province } from '@/types'
 import { getDustRemovalDeviceData } from './api'
 import GaugeChart from '@/components/chart/GaugeChart.vue'
-import type { Dayjs } from 'dayjs';
-import zhCN from 'antd-lang-zh-CN';
+import type { Dayjs } from 'dayjs'
+import locale from 'ant-design-vue/es/date-picker/locale/zh_CN'
 
-const formState1: UnwrapRef<Record<string, string | number | undefined>> = reactive({
-    weatherSelect: null,
-    deviceName: null,
-});
 const options = [
-  {label: "气象采集1", value: "1"},
-  {label: "气象采集2", value: "2"},
+  { label: '气象采集1', value: '1' },
+  { label: '气象采集2', value: '2' }
 ]
 const onSearch = () => {}
-
 
 const treeData: TreeProps['treeData'] = [
   {
@@ -148,27 +247,28 @@ const treeData: TreeProps['treeData'] = [
       { title: '城市2', key: '0-0-2' },
       { title: '城市3', key: '0-0-3' },
       { title: '城市4', key: '0-0-4' },
-      { title: '城市5', key: '0-0-5' },
-    ],
-  },
-];
-const selectedKeys = ref(['0-0-5']);
+      { title: '城市5', key: '0-0-5' }
+    ]
+  }
+]
+const selectedKeys = ref(['0-0-5'])
 
-type RangeValue = [Dayjs, Dayjs];
+type RangeValue = [Dayjs, Dayjs]
 
 const formState2: UnwrapRef<Record<string, string | number | undefined | RangeValue>> = reactive({
-    province: null,
-    city: null,
-    time: [null, null],
-});
+  province: null,
+  city: null,
+  time: [null, null]
+})
 
-
-const provinces = data1.map((item: Province) => ({label: item.name, value: item.name}));
+const provinces = data1.map((item: Province) => ({ label: item.name, value: item.name }))
 const cities = computed(() => {
   // return data2.filter((item: Province) => item.name === formState2.province)[0]?.city.map((item) => ({label: item, value: item}));
-  return !formState2.province ? [] : Object.keys(data2[formState2.province]).map( (item: string) => {
-    return {label: item, value: item + "," + data2[formState2.province][item]}
-  })
+  return !formState2.province
+    ? []
+    : Object.keys(data2[formState2.province]).map((item: string) => {
+        return { label: item, value: item + ',' + data2[formState2.province][item] }
+      })
 })
 
 const changeCity = () => {
@@ -198,7 +298,7 @@ const download = () => {
 .ant-form-item {
   width: 50%;
   margin-inline-end: 0;
-  padding: 0 5px ;
+  padding: 0 5px;
   :deep(&-label) {
     label {
       color: #b3e4fe;
@@ -246,12 +346,12 @@ const download = () => {
 .chart {
   display: grid;
   gap: 10px;
-  grid-template-columns: 1fr 2fr 1fr;  /* 三列布局 */
-  grid-template-rows: 1fr 50px;      /* 两行布局，第二行高度固定 */
+  grid-template-columns: 1fr 2fr 1fr; /* 三列布局 */
+  grid-template-rows: 1fr 50px; /* 两行布局，第二行高度固定 */
   width: 100%;
   height: 100%;
   padding: 0px 10px 10px 10px;
-  
+
   .c-left {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
@@ -276,7 +376,7 @@ const download = () => {
   .c-center {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
-    background-image: linear-gradient(to bottom, rgb(35, 134, 237), rgb(206,229,244));
+    background-image: linear-gradient(to bottom, rgb(35, 134, 237), rgb(206, 229, 244));
     .c-c {
       display: grid;
       height: 100%;
@@ -286,20 +386,20 @@ const download = () => {
       &-detail {
         padding: 10px 10px;
         height: 100%;
-        grid-column: 1 / 2;  
+        grid-column: 1 / 2;
         display: grid;
         color: #fff;
-        font-family: "Arial";
+        font-family: 'Arial';
         grid-template-columns: repeat(3, 1fr) !important;
         grid-template-rows: repeat(4, 1fr);
         grid-gap: 10px;
         justify-content: center;
         align-items: center;
-        
+
         div {
           width: 100%;
           height: 100%;
-          border:#fff 1px solid;
+          border: #fff 1px solid;
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -319,16 +419,16 @@ const download = () => {
       }
 
       &-chart {
-        grid-column: 2 / 3; 
+        grid-column: 2 / 3;
       }
     }
   }
 
   .c-right {
-    grid-column: 3 / 4; 
-    grid-row: 1 / 2;     
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
     .position {
-      font-family: "Arial";
+      font-family: 'Arial';
       color: #fff;
       font-size: 24px;
       font-weight: 700;
@@ -336,13 +436,13 @@ const download = () => {
     .form {
       width: 100% !important;
       margin: 10px 0px;
-      .ant-form-item()
+      .ant-form-item();
     }
   }
 
   .c-bottom {
-    grid-column: 1 / -1; 
-    grid-row: 2 / 3;     
+    grid-column: 1 / -1;
+    grid-row: 2 / 3;
     border-radius: 10px;
     color: #fff;
     display: flex;
@@ -354,7 +454,10 @@ const download = () => {
 
 .svg-animation {
   perspective: 500px;
-  animation: translateYAnimation 2s linear infinite alternate, flipXAnimation 2s linear infinite alternate, fadeAnimation 2s linear infinite alternate;
+  animation:
+    translateYAnimation 2s linear infinite alternate,
+    flipXAnimation 2s linear infinite alternate,
+    fadeAnimation 2s linear infinite alternate;
 }
 
 @keyframes translateYAnimation {
