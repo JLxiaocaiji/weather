@@ -3,7 +3,7 @@
     <div class="header-left">
       <div class="react-left">设备监控</div>
     </div>
-    <div class="header-center">气象监控大屏</div>
+    <div class="header-center">智慧气象数据采集系统</div>
     <div class="header-right">
       <span class="react-right1">设备监控</span>
       <span class="react-right2">
