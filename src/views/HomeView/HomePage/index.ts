@@ -71,9 +71,7 @@ export const scheme: { describe: string; status: string }[] = [
 ]
 
 export interface searchParam {
-  startTime: string // 开始时间
-  endTime: string // 结束时间
-  furnaceCode: string // 炉号
-  chamberCode: string // 室号
-  electromagneticStanceCode: string // 电场号
+  beginTime?: string // 开始时间
+  endTime?: string // 结束时间
+  cityCode?: string // 炉号
 }

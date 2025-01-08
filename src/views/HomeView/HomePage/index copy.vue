@@ -111,7 +111,7 @@ import type { TreeProps } from 'ant-design-vue';
 import data1 from "@/assets/json/province.json";
 import data2 from "@/assets/json/city.json";
 import { Province } from "@/types";
-import { getDustRemovalDeviceData } from './api'
+import { getWeatherDataDataExport, getWeatherData } from './api'
 
 const formState1: UnwrapRef<Record<string, string | number | undefined>> = reactive({
     weatherSelect: null,
@@ -159,7 +159,7 @@ const changeCity = () => {
 }
 
 onMounted(() => {
-  // getDustRemovalDeviceData().then((res) => {
+  // getWeatherDataDataExport().then((res) => {
   //   console.log(res)
   // })
 })

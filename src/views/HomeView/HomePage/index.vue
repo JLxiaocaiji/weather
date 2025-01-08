@@ -7,9 +7,10 @@
         :tree-data="treeData"
         show-icon
         default-expand-all
+        @select="onSelect"
       >
         <template #title="{ key, title }">
-          <a-button size="small" v-if="key == '0-0-5'" style="background: #0d4f0e; color: #2c9b3a"
+          <a-button size="small" v-if="key == selectedKeys[0]" style="background: #0d4f0e; color: #2c9b3a"
             >在线</a-button
           >
           <template v-else-if="key == '0'"></template>
@@ -171,39 +172,42 @@
         layout="inline"
         :model="formState2"
         :label-col="{ span: 4 }"
-        :wrapper-col="{ span: 18 }"
+        :wrapper-col="{ span: 20 }"
       >
-        <a-form-item name="province" label="省 ">
-          <a-select
-            v-model:value="formState2.province"
-            :options="provinces"
-            placeholder="请选择省级区域"
-            allowClear
-          />
-        </a-form-item>
-        <a-form-item name="city" label="市 ">
-          <a-select
-            v-model:value="formState2.city"
-            :options="cities"
-            placeholder="请选择市/县级区域"
-            allowClear
-            @change="changeCity"
-          />
-        </a-form-item>
-
-        <a-form-item name="time" label="时间范围" style="width: 400px; margin-top: 10px">
-          <a-range-picker v-model:value="formState2.time" show-time :locale="locale" />
-        </a-form-item>
-
-        <a-form-item style="margin-top: 10px">
-          <a-button @click="download">下载</a-button>
-        </a-form-item>
-
-        <!-- <a-form-item style="width: 400px; margin-top:10px;">
-          <a-space>
-            <a-button @click="download">下载</a-button>
-          </a-space>
-        </a-form-item> -->
+        <a-row style="width: 100%;">
+          <a-col :span="12">
+            <a-form-item name="province" label="省" required>
+              <a-select
+                v-model:value="formState2.province"
+                :options="provinces"
+                placeholder="请选择省级区域"
+                allowClear
+              />
+            </a-form-item>
+          </a-col>
+          <a-col :span="12">
+            <a-form-item name="city" label="市 " required>
+              <a-select
+                v-model:value="formState2.city"
+                :options="cities"
+                placeholder="请选择市/县级区域"
+                allowClear
+              />
+            </a-form-item>
+          </a-col>
+        </a-row>
+        <a-row style="width: 100%;">
+          <a-col :span="20">
+            <a-form-item name="time" label="时间范围" required>
+              <a-range-picker v-model:value="formState2.time" show-time :locale="locale" :format="dateFormat"/>
+            </a-form-item>
+          </a-col>
+          <a-col :span="4">
+            <a-form-item>
+              <a-button @click="download">下载</a-button>
+            </a-form-item>
+          </a-col>
+        </a-row>
       </a-form>
     </dv-border-box-10>
 
@@ -226,61 +230,64 @@ import type { TreeProps } from 'ant-design-vue'
 import data1 from '@/assets/json/province.json'
 import data2 from '@/assets/json/city.json'
 import { Province } from '@/types'
-import { getDustRemovalDeviceData } from './api'
+import { getWeatherDataDataExport, getWeather } from './api'
 import GaugeChart from '@/components/chart/GaugeChart.vue'
-import type { Dayjs } from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs';
 import locale from 'ant-design-vue/es/date-picker/locale/zh_CN'
-
-const options = [
-  { label: '气象采集1', value: '1' },
-  { label: '气象采集2', value: '2' }
-]
-const onSearch = () => {}
 
 const treeData: TreeProps['treeData'] = [
   {
     title: '最近气象采集城市列表',
     key: '0',
     children: [
-      { title: '城市0', key: '0-0-0' },
-      { title: '城市1', key: '0-0-1' },
-      { title: '城市2', key: '0-0-2' },
-      { title: '城市3', key: '0-0-3' },
-      { title: '城市4', key: '0-0-4' },
-      { title: '城市5', key: '0-0-5' }
+      { title: '北京', key: 'Wqsps' },
+      { title: '石家庄', key: 'uJQqI' },
+      { title: '广州', key: 'DwzZf' },
+      { title: '南京', key: 'CxOWZ' },
+      { title: '杭州', key: 'HIieJ' },
+      { title: '宁波', key: 'XjZpe' },
+      { title: '苏州', key: 'lqYjK' },
     ]
   }
 ]
-const selectedKeys = ref(['0-0-5'])
+const selectedKeys = ref<string[]>(['Wqsps'])
+
+const getWeatherData = async () => {
+  const res = await getWeather({ cityCode: selectedKeys.value[0] })
+  console.log(res)
+}
+
+// 城市天气搜索
+const onSelect = (e: string[], info: MouseEvent) => {
+  selectedKeys.value = e
+  console.log(selectedKeys)
+};
+
+onMounted(() => {
+  // getWeatherData()
+})
 
 type RangeValue = [Dayjs, Dayjs]
 
-const formState2: UnwrapRef<Record<string, string | number | undefined | RangeValue>> = reactive({
+const formState2: UnwrapRef<Record<string, string | number | undefined | RangeValue[]>> = reactive({
   province: null,
   city: null,
-  time: [null, null]
+  time: []
 })
+
+const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
 const provinces = data1.map((item: Province) => ({ label: item.name, value: item.name }))
 const cities = computed(() => {
-  // return data2.filter((item: Province) => item.name === formState2.province)[0]?.city.map((item) => ({label: item, value: item}));
   return !formState2.province
     ? []
     : Object.keys(data2[formState2.province]).map((item: string) => {
-        return { label: item, value: item + ',' + data2[formState2.province][item] }
+        // return { label: item, value: item + ',' + data2[formState2.province][item] }
+        return { label: item, value: data2[formState2.province][item] }
       })
 })
 
-const changeCity = () => {
-  console.log(formState2)
-}
-
-onMounted(() => {
-  // getDustRemovalDeviceData().then((res) => {
-  //   console.log(res)
-  // })
-})
-
+// 下载
 const download = () => {
   console.log(formState2)
 }
@@ -296,7 +303,8 @@ const download = () => {
 }
 
 .ant-form-item {
-  width: 50%;
+  width: 100%;
+  margin-bottom: 10px;
   margin-inline-end: 0;
   padding: 0 5px;
   :deep(&-label) {
@@ -434,7 +442,7 @@ const download = () => {
       font-weight: 700;
     }
     .form {
-      width: 100% !important;
+      width: 100%;
       margin: 10px 0px;
       .ant-form-item();
     }

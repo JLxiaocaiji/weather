@@ -3,16 +3,8 @@ import type { searchParam } from './index'
 import { defHttp } from '@/utils/http/axios'
 
 enum Api {
-  dustRemovalDeviceData = '/',
   weatherDataDataExport = '/weather/data/dataExport',
   getWeatherData = '/weather/data/getWeatherData',
-}
-
-export const getDustRemovalDeviceData = () => {
-  return defHttp.get(
-    { url: Api.dustRemovalDeviceData },
-    { joinTime: false, isTransformResponse: false }
-  )
 }
 
 export const getWeatherDataDataExport = (params: searchParam) => {
@@ -22,7 +14,7 @@ export const getWeatherDataDataExport = (params: searchParam) => {
   )
 }
 
-export const getWeatherData = (params: searchParam) => {
+export const getWeather = (params: searchParam) => {
   return defHttp.get(
     { url: Api.getWeatherData, params },
     { joinTime: false, isTransformResponse: false }
