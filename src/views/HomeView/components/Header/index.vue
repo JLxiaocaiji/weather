@@ -1,46 +1,48 @@
 <template>
   <div class="header">
     <div class="header-left">
-      <div class="react-left">logo</div>
+      <!-- <div>内蒙古建升电气工程有限公司</div> -->
+      <div class="react-left"></div>
     </div>
     <div class="header-center">智慧气象数据采集系统</div>
     <div class="header-right">
-      <span class="react-right1">设备监控</span>
+      <!-- <span class="react-right1">设备监控</span> -->
       <span class="react-right2">
-        <span>{{ curTime?.year()}}</span>年
-        <span>{{ curTime?.month() + 1 }}</span>月
-        <span>{{ curTime?.date() }}</span>日
-        <span>{{ curTime?.hour() }}</span>时
-        <span>{{ curTime?.minute() }}</span>分
-        <span>{{ curTime?.second() }}</span>秒
+        <span>{{ curTime?.year() }}</span
+        >年 <span>{{ curTime?.month() + 1 }}</span
+        >月 <span>{{ curTime?.date() }}</span
+        >日 <span>{{ curTime?.hour() }}</span
+        >时 <span>{{ curTime?.minute() }}</span
+        >分 <span>{{ curTime?.second() }}</span
+        >秒
       </span>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup name="header">
-import { ref, onMounted, onUnmounted } from 'vue';
-import dayjs, { type Dayjs } from 'dayjs';
+import { ref, onMounted, onUnmounted } from 'vue'
+import dayjs, { type Dayjs } from 'dayjs'
 
 const curTime = ref<Dayjs>(null)
 const updateTime = () => {
-  curTime.value = dayjs();
+  curTime.value = dayjs()
 }
-let timer: any = null;
+let timer: any = null
 onMounted(() => {
-  updateTime();
-  timer = setInterval(updateTime, 1000);
-});
+  updateTime()
+  timer = setInterval(updateTime, 1000)
+})
 
 onUnmounted(() => {
-  clearInterval(timer);
-});
+  clearInterval(timer)
+})
 </script>
 
 <style lang="less" scoped>
 .bg(@direct) {
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -61,7 +63,8 @@ onUnmounted(() => {
   &-left {
     .react-left {
       float: right;
-      width: 30%;
+      width: 47px;
+      height: 40px;
       position: relative;
       color: #fff;
       display: flex;
@@ -70,7 +73,7 @@ onUnmounted(() => {
       height: 45px;
       margin-top: 30px;
       font-size: 14px;
-      .bg("left");
+      background: url('@/assets/images/logo.png') 0 0 / 100% 100% no-repeat;
     }
   }
 
@@ -84,7 +87,7 @@ onUnmounted(() => {
 
   &-right {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 2fr 1fr;
     gap: 20px;
     .react-right1 {
       position: relative;
@@ -97,7 +100,7 @@ onUnmounted(() => {
       height: 45px;
       margin-top: 30px;
       font-size: 14px;
-      .bg("right");
+      .bg('right');
     }
     .react-right2 {
       position: relative;
@@ -109,7 +112,7 @@ onUnmounted(() => {
       height: 45px;
       margin-top: 30px;
       font-size: 14px;
-      .bg("right");
+      .bg('right');
     }
   }
 }

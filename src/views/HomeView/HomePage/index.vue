@@ -10,7 +10,10 @@
         @select="onSelect"
       >
         <template #title="{ key, title }">
-          <a-button size="small" v-if="key == selectedKeys[0]" style="background: #0d4f0e; color: #2c9b3a"
+          <a-button
+            size="small"
+            v-if="key == selectedKeys[0]"
+            style="background: #0d4f0e; color: #2c9b3a"
             >在线</a-button
           >
           <template v-else-if="key == '0'"></template>
@@ -32,10 +35,10 @@
             </span>
           </div>
           <div class="weather-text">
-              <span class="label">天气</span>
-              <!-- <SvgIcon :name="weatherInfo" color="#ffffff" width="24px" height="24px" /> -->
-              <SvgIcon name="realtime_temperature" color="#ffffff" width="24px" height="24px" />
-              <span class="value">晴</span>
+            <span class="label">天气</span>
+            <!-- <SvgIcon :name="weatherInfo" color="#ffffff" width="24px" height="24px" /> -->
+            <SvgIcon name="realtime_temperature" color="#ffffff" width="24px" height="24px" />
+            <span class="value">晴</span>
           </div>
           <div class="update-time">
             <span class="label">更新时间</span>
@@ -76,7 +79,7 @@
           <div class="wind">
             <span class="label">风速 / 风力</span>
             <SvgIcon name="relative_humidity" color="#ffffff" width="24px" height="24px" />
-            <span class="value">{{"1.8"}} / {{ "微风" }}</span>
+            <span class="value">{{ '1.8' }} / {{ '微风' }}</span>
           </div>
           <!-- <div class="y">
             <span>昨天：2024-12-31</span><span>最高气温：23°</span><span>最低气温：13°</span>
@@ -107,12 +110,11 @@
 
         <!-- <div class="c-c-chart"><Pie /></div> -->
         <div class="c-c-chart">
-          
-            <GaugeChart />
-            <div>
-              <span class="title">舒适度：</span>
-              <span >很热，极不适应。</span>
-              <!-- <span v-if=" wDetails. =='i9999'"></span>
+          <GaugeChart />
+          <div>
+            <span class="title">舒适度：</span>
+            <span>很热，极不适应。</span>
+            <!-- <span v-if=" wDetails. =='i9999'"></span>
               <span v-if=" =='i4'">很热，极不适应。</span>
               <span v-if=" =='i3'">热，很不舒适。</span>
               <span v-if=" =='i2'">暖，不舒适。</span>
@@ -123,31 +125,30 @@
               <span v-if=" =='i-3'">冷，很不舒适。</span>
               <span v-if=" =='i-4'">很冷，极不适应。</span>
               <span v-else></span> -->
-            </div>
+          </div>
 
-            <div>
-              <span class="title">空气状况</span>
-              <span >空气质量令人满意,基本无空气污染。</span>
-              <!-- <span v-if=" =='优'">空气质量令人满意,基本无空气污染。</span>
+          <div>
+            <span class="title">空气状况</span>
+            <span>空气质量令人满意,基本无空气污染。</span>
+            <!-- <span v-if=" =='优'">空气质量令人满意,基本无空气污染。</span>
               <span v-if=" =='良'">空气质量可接受,但某些污染物可能对极少数异常,敏感人群健康有较弱影响。</span>
               <span v-if=" =='轻度污染'">易感人群症状有轻度加剧,健康人群出现刺激症状。</span>
               <span v-if=" =='中度污染'">进一步加剧易感人群症状,可能对健康人群心脏、呼吸系统有影响。</span>
               <span v-if=" =='重度污染'">心脏病和肺病患者症状显著加剧,运动耐受力减低,健康人群普遍出现症状。</span>
               <span v-else>健康人运动耐力减低,有显著强烈症状,提前出现某些疾病。</span> -->
-            
+
             <!-- </div>
 
             <div> -->
-              <span class="title"></span>
-              <span >各类人群可正常活动。</span>
-              <!-- <span v-if=" =='优'">各类人群可正常活动。</span>
+            <span class="title"></span>
+            <span>各类人群可正常活动。</span>
+            <!-- <span v-if=" =='优'">各类人群可正常活动。</span>
               <span v-if=" =='良'">极少数异常敏感人群应减少户外活动。</span>
               <span v-if=" =='轻度污染'">儿童、老年人及心脏病、呼吸系统疾病患者应减少长时间、高强度的户外锻炼。</span>
               <span v-if=" =='中度污染'">儿童、老年人及心脏病、呼吸系统疾病患者避免长时间、高强度的户外锻炼,一般人群适量减少户外运动。</span>
               <span v-if=" =='重度污染'">老年人和心脏病、肺病患者应停留在室内，停止户外活动，一般人群减少户外活动。</span>
               <span v-else>老年人和病人应当留在室内，避免体力消耗，一般人群应避免户外活动。</span> -->
-            </div>
-          
+          </div>
         </div>
       </div>
     </dv-border-box-10>
@@ -183,7 +184,7 @@
         :label-col="{ span: 4 }"
         :wrapper-col="{ span: 20 }"
       >
-        <a-row style="width: 100%;">
+        <a-row style="width: 100%">
           <a-col :span="12">
             <a-form-item name="province" label="省" :rules="[{ required: true }]">
               <a-select
@@ -205,10 +206,21 @@
             </a-form-item>
           </a-col>
         </a-row>
-        <a-row style="width: 100%;">
+        <a-row style="width: 100%">
           <a-col :span="20">
-            <a-form-item name="time" label="时间范围" :rules="[{ required: true }]" :label-col="{ span: 5 }" :wrapper-col="{ span: 19 }">
-              <a-range-picker v-model:value="formState.time" show-time :locale="locale" format="YYYY-MM-DD HH:mm:ss"/>
+            <a-form-item
+              name="time"
+              label="时间范围"
+              :rules="[{ required: true }]"
+              :label-col="{ span: 5 }"
+              :wrapper-col="{ span: 19 }"
+            >
+              <a-range-picker
+                v-model:value="formState.time"
+                show-time
+                :locale="locale"
+                format="YYYY-MM-DD HH:mm:ss"
+              />
             </a-form-item>
           </a-col>
           <a-col :span="4">
@@ -220,7 +232,9 @@
       </a-form>
     </dv-border-box-10>
 
-    <div class="c-bottom">Copyright © 2018-2024 niii.com All Rights Reserved.</div>
+    <div class="c-bottom">
+      Copyright © 2018-2025 内蒙古建升电气工程有限公司 All Rights Reserved.
+    </div>
   </div>
 </template>
 
@@ -241,7 +255,7 @@ import data2 from '@/assets/json/city.json'
 import type { Province, WeatherDetail } from '@/types'
 import { getWeatherDataDataExport, getWeather } from './api'
 import GaugeChart from '@/components/chart/GaugeChart.vue'
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs'
 import locale from 'ant-design-vue/es/date-picker/locale/zh_CN'
 import type { FormStateParams } from './index'
 
@@ -256,7 +270,7 @@ const treeData: TreeProps['treeData'] = [
       { title: '南京', key: 'CxOWZ' },
       { title: '杭州', key: 'HIieJ' },
       { title: '宁波', key: 'XjZpe' },
-      { title: '苏州', key: 'lqYjK' },
+      { title: '苏州', key: 'lqYjK' }
     ]
   }
 ]
@@ -274,34 +288,33 @@ const getWeatherData = async () => {
 const onSelect = (e: string[], info: MouseEvent) => {
   selectedKeys.value = e
   console.log(selectedKeys)
-};
+}
 
 // 天气状况
 const weatherInfo = computed(() => {
   // return (wDetails.info == "优" ? "green" :
-  //        wDetails.info == "良" ? "yellow": 
-  //        wDetails.info == "轻度污染" ? "orange": 
-  //        wDetails.info == "中度污染" ? "red": 
-  //        wDetails.info == "重度污染" ? "violet": 
-  //        wDetails.info == "严重污染" ? "maroon": 
+  //        wDetails.info == "良" ? "yellow":
+  //        wDetails.info == "轻度污染" ? "orange":
+  //        wDetails.info == "中度污染" ? "red":
+  //        wDetails.info == "重度污染" ? "violet":
+  //        wDetails.info == "严重污染" ? "maroon":
   //        "") + "_pollution_degree"
 })
 
 // 空气污染程度
 const air_Pollution_DegreeName = computed(() => {
   // return (wDetails.air_forecast_aqi == "优" ? "green" :
-  //        wDetails.air_forecast_aqi == "良" ? "yellow": 
-  //        wDetails.air_forecast_aqi == "轻度污染" ? "orange": 
-  //        wDetails.air_forecast_aqi == "中度污染" ? "red": 
-  //        wDetails.air_forecast_aqi == "重度污染" ? "violet": 
-  //        wDetails.air_forecast_aqi == "严重污染" ? "maroon": 
+  //        wDetails.air_forecast_aqi == "良" ? "yellow":
+  //        wDetails.air_forecast_aqi == "轻度污染" ? "orange":
+  //        wDetails.air_forecast_aqi == "中度污染" ? "red":
+  //        wDetails.air_forecast_aqi == "重度污染" ? "violet":
+  //        wDetails.air_forecast_aqi == "严重污染" ? "maroon":
   //        "") + "_pollution_degree"
 })
 
 onMounted(() => {
   // getWeatherData()
 })
-
 
 /**
  * right
@@ -328,12 +341,12 @@ const cities = computed(() => {
 const download = () => {
   console.log(formState)
   let params = {
-    cityCode: formState?.city?.split(",")[1] as string,
+    cityCode: formState?.city?.split(',')[1] as string,
     beginTime: formState?.time[0].format('YYYY-MM-DD HH:mm:ss'),
     endTime: formState?.time[1].format('YYYY-MM-DD HH:mm:ss')
   }
   console.log(params)
-  getWeatherDataDataExport(params, formState.province + "-" + formState.city)
+  getWeatherDataDataExport(params, formState.province + '-' + formState.city)
 }
 </script>
 
@@ -476,7 +489,7 @@ const download = () => {
       &-chart {
         grid-column: 2 / 3;
         color: #fff;
-        
+
         display: grid;
         grid-template-rows: 2fr 1fr 1fr;
 
