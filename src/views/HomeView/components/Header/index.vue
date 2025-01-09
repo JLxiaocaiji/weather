@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="header-left">
-      <div class="react-left">设备监控</div>
+      <div class="react-left">logo</div>
     </div>
     <div class="header-center">智慧气象数据采集系统</div>
     <div class="header-right">

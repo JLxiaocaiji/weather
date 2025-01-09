@@ -1,5 +1,6 @@
 import { reactive } from 'vue'
 import type { HeaderDataType } from '@/types'
+import dayjs, { Dayjs } from 'dayjs';
 
 export const list: HeaderDataType[] = reactive([
   {
@@ -70,8 +71,14 @@ export const scheme: { describe: string; status: string }[] = [
   { describe: '故障诊断', status: '已切除' }
 ]
 
-export interface searchParam {
+export interface SearchParam {
   beginTime?: string // 开始时间
   endTime?: string // 结束时间
   cityCode?: string // 炉号
+}
+
+export interface FormStateParams {
+  province?: string,
+  city?: string,
+  time?: [Dayjs, Dayjs]
 }

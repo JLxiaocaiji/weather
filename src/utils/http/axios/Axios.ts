@@ -1,5 +1,5 @@
 import type { AxiosRequestConfig, AxiosInstance, AxiosResponse, AxiosError } from 'axios'
-import type { RequestOptions, Result, UploadFileParams, UploadFileCallBack } from '/#/axios'
+import type { RequestOptions, Result, UploadFileParams, UploadFileCallBack } from '@/types/axios'
 import type { CreateAxiosOptions } from './axiosTransform'
 import axios from 'axios'
 import qs from 'qs'
@@ -216,6 +216,28 @@ export class VAxios {
           }
           reject(e)
         })
+    })
+  }
+
+  downloadFile<T = any>(method: "POST" | "GET", config: AxiosRequestConfig, options?: RequestOptions, filename?: string): Promise<T> {
+    return (method === 'POST' ? this.get : this.post)<T>({ ...config, responseType: 'blob'}, { ...options,
+       isTransformResponse: false
+    }).then((response: any) => {
+      const blob = new Blob([response], { type: 'application/octet-stream' })
+      if ('download' in document.createElement('a')) {
+        const url = window.URL.createObjectURL(blob)
+        const link = document.createElement('a')
+        link.style.display = 'none'
+        link.href = url
+        link.setAttribute('download', filename || 'download')
+        document.body.appendChild(link)
+        link.click()
+        window.URL.revokeObjectURL(url)
+        document.body.removeChild(link)
+      } else {
+        window.navigator.msSaveBlob(blob, filename)
+      }
+      return response
     })
   }
 }

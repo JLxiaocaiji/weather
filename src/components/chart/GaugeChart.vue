@@ -76,13 +76,9 @@ const initChart = () => {
         },
         axisLabel: {
           distance: -30,
-          color: '#999',
-          fontSize: 20,
           formatter: '{value} 时',
-          textStyle: {
-            fontSize: 12,
-            color: '#fff'
-          }
+          fontSize: 12,
+          color: '#fff'
         },
         pointer: {
           show: false
@@ -115,7 +111,7 @@ const initChart = () => {
       {
         type: 'text',
         left: '2%',
-        bottom: '12%',
+        top: '12%',
         style: {
           text: `日出时间:${sunriseTime} 时 `,
           fontSize: 12,
@@ -125,7 +121,7 @@ const initChart = () => {
       {
         type: 'text',
         right: '2%',
-        bottom: '12%',
+        top: '12%',
         style: {
           text: `日落时间:${sunsetTime} 时`,
           fontSize: 12,
@@ -168,6 +164,6 @@ onBeforeUnmount(() => {
 <style lang="less" scoped>
 .gauge {
   width: 100%;
-  height: 200px;
+  height: 100%;
 }
 </style>

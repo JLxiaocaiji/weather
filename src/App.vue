@@ -1,9 +1,14 @@
 <template>
-  <RouterView />
+  <ConfigProvider :locale="locale">
+    <RouterView />
+  </ConfigProvider>
 </template>
 
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import { ConfigProvider } from "ant-design-vue";
+import "dayjs/locale/zh-cn";
+import locale from 'ant-design-vue/es/date-picker/locale/zh_CN';
 </script>
 
 <style scoped>
