@@ -6,13 +6,22 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('@/views/HomeView/index.vue'),
+      component: () => import('@/views/Login/index.vue'),
       meta: {
-        title: '大屏'
+        title: '项目'
       },
       children: [
         {
-          path: '/',
+          path: '/login',
+          name: 'login',
+          component: () => import('@/views/Login/index.vue'),
+          meta: {
+            title: '登录',
+            ignoreAuth: true
+          }
+        },
+        {
+          path: '/homePage',
           name: 'homePage',
           component: () => import('@/views/HomeView/HomePage/index.vue'),
           meta: {

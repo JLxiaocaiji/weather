@@ -111,6 +111,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     plugins: createVitePlugins(viteEnv, isBuild),
     // 预加载构建配置（首屏性能)
     optimizeDeps: {
+      // dedupe: ['vue'],
       esbuildOptions: {
         target: 'es2020'
       },

@@ -17,6 +17,11 @@ export type Province = {
   url: string
 }
 
+export type LoginForm = {
+  username: string,
+  password: string,
+}
+
 export type WeatherDetail = {
   air_forecast_time?: string
   air_forecast_text?: string
